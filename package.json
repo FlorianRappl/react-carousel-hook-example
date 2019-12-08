@@ -1,0 +1,33 @@
+{
+  "name": "react-carousel-hook-example",
+  "version": "1.0.0",
+  "description": "Example for using the Carousel hook.",
+  "homepage": "https://blog.logrocket.com/building-carousel-component-react-hooks/",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sample",
+    "react",
+    "hooks",
+    "carousel"
+  ],
+  "author": "Florian Rappl",
+  "license": "MIT",
+  "dependencies": {
+    "emotion": "^10.0.23",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-swipeable": "^5.5.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.15",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-swipeable": "^5.2.0",
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^3.7.3"
+  }
+}

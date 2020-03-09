@@ -116,10 +116,19 @@ function swiped(
   }
 }
 
+export interface CarouselOptions {
+  slidesPresented?: number;
+}
+
 export function useCarousel(
   length: number,
   interval: number,
+  options: CarouselOptions = {},
 ): [number, (n: number) => void, SwipeableHandlers, React.CSSProperties] {
+  const { slidesPresented = 1 } = options;
+  const shadowSlides = 2 * slidesPresented;
+  const n = Math.max(1, Math.min(slidesPresented, length));
+  const totalWidth = 100 / n;
   const [state, dispatch] = useReducer(carouselReducer, initialCarouselState);
   const [container, setContainer] = useState(undefined);
   const { ref, onMouseDown } = useSwipeable({
@@ -159,15 +168,15 @@ export function useCarousel(
 
   const style: React.CSSProperties = {
     transform: 'translateX(0)',
-    width: `${100 * (length + 2)}%`,
-    left: `-${(state.active + 1) * 100}%`,
+    width: `${totalWidth * (length + shadowSlides)}%`,
+    left: `-${(state.active + 1) * totalWidth}%`,
   };
 
   if (state.desired !== state.active) {
     const dist = Math.abs(state.active - state.desired);
     const pref = Math.sign(state.offset || 0);
     const dir = (dist > length / 2 ? 1 : -1) * Math.sign(state.desired - state.active);
-    const shift = (100 * (pref || dir)) / (length + 2);
+    const shift = (totalWidth * (pref || dir)) / (length + shadowSlides);
     style.transition = smooth;
     style.transform = `translateX(${shift}%)`;
   } else if (!isNaN(state.offset)) {
